@@ -91,6 +91,24 @@ func (db *MemDB) initialize() error {
 	return nil
 }
 
+// initialize is used to setup the DB for use after creation. This should
+// be called only once after allocating a MemDB.
+func (db *MemDB) InitTable(table string) error {
+	root := db.getRoot()
+	for tName, tableSchema := range db.schema.Tables {
+		if tName == table {
+			for iName := range tableSchema.Indexes {
+				index := iradix.New()
+				path := indexPath(tName, iName)
+				root, _, _ = root.Insert(path, index)
+			}
+			break
+		}
+	}
+	db.root = unsafe.Pointer(root)
+	return nil
+}
+
 // indexPath returns the path from the root to the given table index
 func indexPath(table, index string) []byte {
 	return []byte(table + "." + index)
