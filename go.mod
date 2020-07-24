@@ -1,4 +1,4 @@
-module github.com/hashicorp/go-memdb
+module github.com/inspur-ec/go-memdb
 
 go 1.12
 
