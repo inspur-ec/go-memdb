@@ -1,8 +1,5 @@
 module github.com/inspur-ec/go-memdb
 
-go 1.12
+go 1.13
 
-require (
-	github.com/hashicorp/go-immutable-radix v1.2.0
-	github.com/hashicorp/golang-lru v0.5.4 // indirect
-)
+require github.com/hashicorp/go-immutable-radix v1.2.0
